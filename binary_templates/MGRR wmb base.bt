@@ -268,8 +268,8 @@ if ( header.offsetMaterials != 0 ) {
         uint32  offsetTextures <format=hex>;
         uint32  u_a;
         uint32  offsetParameters <format=hex>;
+        uint16  u_b;
         uint16  numTextures;
-        uint16  u_c;
         uint16  u_d;
         uint16  numParameters;
         local uint32 pos = FTell();
@@ -277,15 +277,9 @@ if ( header.offsetMaterials != 0 ) {
         char  shaderName[16];
         FSeek(offsetTextures);
         struct {
-            uint32  tex0;
-            uint32  albedoMap;
-            uint32  tex2;
-            uint32  tex3;
-            uint32  tex4;
-            uint32  tex5;
-            uint32  tex6;
-            uint32  normalMap;
-        } textureIndexes;
+            uint32  texType; // 0 = Color map, 2 = Normal map, etc
+	    uint32  texIndex;
+        } textures[numTextures];
         FSeek(offsetParameters);
         vector4 parameters[numParameters/4];
         FSeek(pos);
